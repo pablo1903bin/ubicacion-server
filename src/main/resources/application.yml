@@ -1,0 +1,40 @@
+server:
+  servlet:
+    context-path: /ubicacion-server
+  port: 6000
+
+  tomcat:
+    threads:
+      min-spare: 20
+      max: 500
+    max-connections: 20000
+    accept-count: 1000
+
+spring:
+  application:
+    name: ubicacion-server
+
+  profiles:
+    default: dev 
+
+  config:
+    #import: ${SPRING_CONFIG_IMPORT} # Importa la configuración externa desde config-server
+    #import: optional:configserver:http://localhost:7777/
+    import: optional:configserver:http://192.168.100.48:7777/
+
+eureka:
+  instance:
+    instance-id: "${spring.application.name}:${random.value}" # ID único para registrar esta instancia en Eureka (evita duplicados)
+  client:
+    service-url:   
+      defaultZone: http://192.168.100.48:8761/eureka/
+      #defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+      #defaultZone: "${eureka.registry-server}"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v1/ubicacion-server
+
+
