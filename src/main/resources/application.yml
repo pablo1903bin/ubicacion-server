@@ -22,6 +22,14 @@ spring:
     #import: optional:configserver:http://localhost:7777/
     import: optional:configserver:http://192.168.100.48:7777/
 
+  kafka:
+    bootstrap-servers: http://192.168.100.48:9092 
+    streams:
+      application-id: ubicacion-stream-app
+      default:
+        key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        value-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+
 eureka:
   instance:
     instance-id: "${spring.application.name}:${random.value}" # ID único para registrar esta instancia en Eureka (evita duplicados)
